@@ -26,6 +26,12 @@ jobs:
           npm test
           npm run build
 
+      - name: Start server (background)
+        working-directory: server
+        run: |
+          # start the built server in background for E2E tests
+          nohup npm start > server.log 2>&1 &
+
       - name: Install, typecheck & build frontend
         working-directory: frontend
         run: |
@@ -35,3 +41,8 @@ jobs:
           # run TypeScript type check (no emit)
           npx tsc -p tsconfig.json --noEmit
           npm run build
+          # start a preview server in the background for Playwright
+          nohup npm run preview -- --port 5173 > preview.log 2>&1 &
+          # install playwright browsers and run E2E tests
+          npx playwright install --with-deps
+          npx playwright test --config=playwright.config.ts --reporter=list
