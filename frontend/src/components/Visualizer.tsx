@@ -47,7 +47,8 @@ export default function Visualizer() {
 
   async function runServerCheck(target: string) {
     try {
-      const res = await fetch('/api/check', {
+      const apiBase = (import.meta as any).env?.VITE_API_BASE || '/api';
+      const res = await fetch(`${apiBase}/check`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ language: 'a^n b^n', string: target }),
