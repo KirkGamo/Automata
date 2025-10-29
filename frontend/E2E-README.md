@@ -47,6 +47,15 @@ cd frontend
 npm run e2e
 ```
 
+Windows note
+--
+If you are running PowerShell on Windows and encounter quoting or command-shell issues, use the Windows helper which runs the dev server through cmd:
+
+```powershell
+cd frontend
+npm run e2e:dev:win
+```
+
 Notes & alternatives
 - If you prefer a single command that starts the frontend and runs tests when the page is ready, you can use `start-server-and-test` or `concurrently` via `npx`. Example (requires installing `start-server-and-test`):
 
