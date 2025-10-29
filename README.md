@@ -23,4 +23,27 @@ cd frontend; npm run dev
 cd server; npm run dev
 ```
 
-The frontend will try to call `/api/check` on the same host; during local development you can proxy requests from Vite to the server or run the server on a separate terminal.
+The frontend will call `/api/check` for membership checks. During local development the Vite dev server is already configured to proxy `/api/*` to the backend (http://localhost:4000), so you can simply run both servers and call `/api` without CORS.
+
+Development proxy
+-----------------
+
+- Backend default: `http://localhost:4000` (see `server/src/index.ts`)
+- Frontend dev server: `http://localhost:5173` (Vite)
+- Vite dev proxy is configured in `frontend/vite.config.ts` to forward `/api` to the backend. Example call from the app:
+
+```ts
+fetch('/api/check', { method: 'POST', body: JSON.stringify({ language, string }), headers: { 'Content-Type': 'application/json' } })
+```
+
+Run both servers in separate terminals (PowerShell):
+
+```powershell
+cd server
+npm run dev
+
+cd ..\frontend
+npm run dev
+```
+
+If you prefer to run the backend on a different port, update `frontend/vite.config.ts` proxy target accordingly.
