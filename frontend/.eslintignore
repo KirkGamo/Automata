@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.vite/
+playwright-report/
+test-results/
+coverage/
+node_modules/
+dist/
+.cache/
+.vite/
+coverage/
+test-results/
+frontend/test-results/
