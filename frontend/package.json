@@ -10,6 +10,7 @@
     "test:ci": "vitest --run",
     "e2e": "playwright test",
     "e2e:ci": "npx playwright test --reporter=list",
+    "e2e:dev": "npx start-server-and-test \"npm:dev\" http://localhost:5173 \"npm run e2e\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "format": "prettier --write ."
   },
@@ -33,6 +34,7 @@
     "jsdom": "^27.0.1",
     "playwright": "^1.40.0",
     "prettier": "^2.8.0",
+    "start-server-and-test": "^1.15.4",
     "typescript": "^5.0.0",
     "vite": "^5.4.21",
     "vitest": "^1.0.0"
