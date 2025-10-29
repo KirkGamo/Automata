@@ -30,6 +30,8 @@ jobs:
         working-directory: frontend
         run: |
           npm ci
+          # run frontend tests
+          npm test --silent
           # run TypeScript type check (no emit)
           npx tsc -p tsconfig.json --noEmit
           npm run build
