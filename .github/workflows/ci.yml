@@ -19,6 +19,13 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Setup Node.js (server cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: server/package-lock.json
+
       - name: Install & build server
         working-directory: server
         run: |
@@ -37,6 +44,7 @@ jobs:
       - name: Install, typecheck & build frontend
         working-directory: frontend
         run: |
+          # restore npm cache for frontend (handled by setup-node)
           npm ci
           # lint frontend sources - fail CI if lint errors
           npm run lint
@@ -50,3 +58,10 @@ jobs:
           # install playwright browsers and run E2E tests
           npx playwright install --with-deps
           npx playwright test --config=playwright.config.ts --reporter=list
+
+      - name: Setup Node.js (frontend cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
