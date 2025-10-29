@@ -47,3 +47,17 @@ npm run dev
 ```
 
 If you prefer to run the backend on a different port, update `frontend/vite.config.ts` proxy target accordingly.
+
+Frontend lint & tests
+---------------------
+
+To run the frontend unit tests and lint locally (after installing deps):
+
+```powershell
+cd frontend
+npm install
+npm run test    # runs Vitest in watch mode
+npm run test:ci # run tests once (CI style)
+npm run lint    # runs ESLint over `src/`
+```
+
