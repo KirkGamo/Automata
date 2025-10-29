@@ -1,0 +1,5 @@
+body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; padding: 1rem; }
+.app { max-width: 720px; margin: 0 auto; }
+.visualizer { margin-top: 1rem; }
+.visualizer input { margin-right: .5rem; }
+.result { margin-top: .75rem; font-weight: 600 }

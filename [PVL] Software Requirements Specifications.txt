@@ -1,0 +1,289 @@
+﻿PUMPING LEMMA VISUALIZER SOFTWARE SPECIFICATION DOCUMENT
+
+
+An SRS Document
+Presented to the Faculty of the
+College of Information and Communications Technology
+West Visayas State University
+La Paz, Iloilo City
+
+
+Version 1.0
+
+
+ Prepared by
+  
+Kirk Henrich C. Gamo
+Jullian A. Bilan
+Clarence Anthony G. Bolivar
+Janfloyd J. Vallota
+
+
+October 2025
+I. Introduction
+Purpose
+This document specifies the requirements for the Automata Visualizer. The system aims to help students and educators in automata theory by providing an interactive web-based platform for visualizing and testing the Pumping Lemma on formal languages.
+Scope
+The system allows users to:
+* Input a formal language and see if it satisfies the Pumping Lemma for regular or context-free languages.
+* Simulate string pumping steps visually.
+* Display proofs showing why a language is or is not regular/context-free.
+* Provide educational feedback and examples for learning.
+The system will be used in computer science education, especially in courses on Formal Languages and Automata Theory.
+
+
+Definitions, Acronyms, and Abbreviations
+* Pumping Lemma (Regular) - Property used to prove whether a language is non-regular.
+* Pumping Lemma (Context-Free) - Property used to prove whether a language is non-context-free.
+* DFA - Deterministic Finite Automaton.
+* CFG - Context-Free Grammar.
+References
+* Hopcroft, Motwani, and Ullman, Introduction to Automata Theory, Languages, and Computation.
+* NPTEL: Theory of Computation Course Materials.
+
+II. Overall Description
+Product Perspective
+The Automata Visualizer is an independent educational tool that can integrate into learning management systems or be used as a standalone website.
+Product Functions
+   * Accept user-defined or sample languages (e.g., regular expressions, CFGs).
+   * Perform analysis to check if the language satisfies the Pumping Lemma.
+   * Generate visual steps for pumping the string.
+   * Provide textual proof of the result.
+Store user activity logs for analytics.
+User Classes and Characteristics
+      * Students: Use it to test examples and visualize proofs.
+      * Instructors: Use it for demonstration and assignments.
+      * Researchers: Use it to explore automated proof generation.
+Operating Environment
+      * Web-based, runs on modern browsers (Chrome, Firefox, Edge).
+      * Backend server (Node.js/Python Flask).
+      * Database (SQLite or MongoDB).
+
+Design and Implementation Constraints
+         * Must run offline after local setup.
+         * Should render visual proofs in under 5 seconds.
+         * Should handle up to 100 concurrent users.
+User Documentation
+         * Online help guide and tutorial videos.
+         * PDF manual explaining features and use-cases.
+Assumptions and Dependencies
+         * Users have basic knowledge of automata theory.
+         * Requires stable internet for online version.
+
+
+
+
+
+
+
+
+
+
+III. System Features
+Feature 1: Input Language Definition
+Description:
+Users can enter a regular expression, CFG, or a sample language description. 
+Inputs: User text input. 
+Outputs: Parsed representation of the language.
+Feature 2: Pumping Lemma Test
+Description:
+System checks the language against the conditions of the Pumping Lemma (for both regular and context-free versions).
+Inputs: Selected language, type (regular/CFG), string length n.
+Outputs: Proof and pass/fail status.
+Feature 3: Step-by-Step Visualization
+Description:
+Displays the pumping process (splitting the string into x, y, z or uvwxy).
+Inputs: Target string and split parameters.
+Outputs: Animated steps showing pumping iterations.
+Feature 4: Educational Feedback
+Description:
+Provides hints or explanations for why the lemma fails or holds.
+Outputs: Text explanation and recommended reading.
+Feature 5: Save and Export Results
+Description:
+Allows users to export their analysis as PDF for reports or assignments.
+
+
+
+
+IV. External Interface Requirements
+User Interfaces
+         * Simple dashboard for input and result visualization.
+         * Graphical pane showing string pumping animations.
+         * Buttons for Run, Reset, Export.
+Hardware Interfaces
+         * Standard desktop or laptop.
+Software Interfaces
+         * Web browser (latest versions).
+         * Server backend (Node.js or Flask API).
+Communications Interfaces
+         * HTTP/HTTPS protocols.
+
+
+
+
+
+
+V. Nonfunctional Requirements
+Performance
+         * Average response time under 3 seconds.
+Security
+         * Prevent code injection in language inputs.
+Reliability
+         * Should not crash under invalid inputs.
+Maintainability
+         * Modular architecture for easy feature updates.
+Portability
+         * Cross-platform support (Windows, macOS, Linux).
+System Architecture Overview
+         * Frontend: React or Vue.js for interface.
+         * Backend: Python Flask for logic and analysis.
+         * Database: MongoDB for user data.
+         * Visualization Engine: D3.js for pumping animations.
+VII. Appendices
+Appendix A – Sample Use Case
+Use Case: Test whether L = {aⁿbⁿ | n ≥ 0} is regular.
+Expected Result: System shows it fails the Pumping Lemma for regular languages.
+
+
+Appendix B – Data Dictionary
+Data Name
+	Type
+	Description
+	user_id
+	String
+	User identifier
+	language_input
+	String
+	User’s language definition
+	lemma_type
+	String
+	Regular or Context-Free
+	result
+	String
+	Pass/Fail result
+	timestamp
+	DateTime
+	Date of analysis
+	
+
+
+
+VIII. Mock UI Layouts
+Home Page / Dashboard
+Purpose: Welcome users and let them select which Pumping Lemma Regular or Context-Free) they want to test.
+Layout Description:
+         * Header: “Automata Visualizer” title and logo.
+         * Main Buttons:
+         * [Test Regular Pumping Lemma]
+         * [Test Context-Free Pumping Lemma]
+         * Side Panel: About, Help, Contact links.
+         * Footer: “Developed by [Team Name] | Version 1.0”
+
+
+Input Page (Language Definition Interface)
+Purpose: Allow users to define or input a language.
+Layout Description:
+         * Input Textbox: “Enter your language definition (e.g., L = {aⁿbⁿ | n ≥ 0})”
+
+
+         * Options:
+         * Dropdown: Select Lemma Type (Regular / Context-Free)
+         * Button: [Run Test]
+         * Button: [Clear Input]
+         * Preview Panel: Displays parsed representation (e.g., CFG, RE).
+
+
+Visualization Page (Main Simulation)
+Purpose: Show the step-by-step pumping process visually.
+Layout Description:
+         * String Display Panel: Shows string w = xyz or uvwxy.
+         * Control Buttons:
+         * [Next Step]
+         * [Auto-Run]
+         * [Reset]
+         * Animation Pane:
+         * Highlights substrings (x, y, z) in different colors.
+         * Shows repetition effect for pumped strings.
+         * Explanation Pane:
+         * Textual proof reasoning: “After pumping y twice, the string is not in the language. Therefore, L is not regular.”
+Results and Feedback Page
+Purpose: Display the final decision and export options.
+Layout Description:
+         * Result Box: Displays “Language fails/satisfies the Pumping Lemma.”
+         * Feedback Section:
+         * Explanation of why the lemma holds or fails.
+         * Suggested exercises or readings.
+         * Buttons:
+         * [Download Report as PDF]
+         * [Test Another Language]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+IX. Data Flow Diagram (DFD)
+Level 0 (Context Diagram)
+System: Automata Visualizer
+External Entities: User, Database
+Data Flow:
+         * User → (inputs language definition) → System
+         * System → (stores data) → Database
+         * System → (outputs analysis, visualization, proof) → User
+
+
+Level 1 DFD (Decomposition)
+Process 1: Input and Parsing
+         * User inputs language → System parses RE or CFG → Parsed structure sent to Analysis Engine
+Process 2: Lemma Analysis Engine
+         * Takes parsed language
+         * Applies Pumping Lemma (based on selected type)
+         * Returns test result and pumping sequence
+
+Process 3: Visualization Engine
+            * Takes pumping sequence → Generates animation and steps
+            * Sends results to User Interface
+Process 4: Result Storage and Export
+            * Stores session data in Database
+            * Exports results as PDF if requested
+Data Stores:
+            * D1: User Data
+            * D2: Language Definitions
+            * D3: Test Results
+External Entities:
+            * E1: User
+            * E2: Database
+
+
+
+
+X. System Architecture Summary
+Layer
+	Component
+	Description
+	Presentation
+	React Interface
+	Handles user input and visualization
+	Application
+	Flask / Node.js
+	Core logic and analysis engine
+	Data
+	MongoDB
+	Stores languages, results, and logs
+	Visualization
+	D3.js
+	Renders pumping animations and proofs
+	XI. Future Enhancements
+            * Add support for Turing Machines and Pushdown Automata visualization.
+            * Integrate a quiz mode to test student understanding.
+            * Add multi-language support for international use.
+            * Enable collaborative mode for group learning.s
