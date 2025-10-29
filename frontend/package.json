@@ -11,7 +11,7 @@
     "e2e": "playwright test",
     "e2e:ci": "npx playwright test --reporter=list",
     "e2e:dev": "npx start-server-and-test \"npm:dev\" http://localhost:5173 \"npm run e2e\"",
-  "e2e:dev:win": "npx start-server-and-test \"cmd /c npm run dev\" http://localhost:5173 \"npm run e2e\"",
+    "e2e:dev:win": "npx start-server-and-test \"cmd /c npm run dev\" http://localhost:5173 \"npm run e2e\"",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "format": "prettier --write ."
   },
@@ -20,7 +20,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.56.1",
+  "@playwright/test": "^1.56.1",
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.0",
@@ -33,7 +33,6 @@
     "eslint-plugin-react": "^7.0.0",
     "happy-dom": "^20.0.10",
     "jsdom": "^27.0.1",
-    "playwright": "^1.40.0",
     "prettier": "^2.8.0",
     "start-server-and-test": "^1.15.4",
     "typescript": "^5.0.0",
