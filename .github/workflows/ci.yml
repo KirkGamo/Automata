@@ -23,6 +23,8 @@ jobs:
         working-directory: server
         run: |
           npm ci
+          # lint server sources - fail CI if lint errors
+          npm run lint
           npm test
           npm run build
 
@@ -36,6 +38,8 @@ jobs:
         working-directory: frontend
         run: |
           npm ci
+          # lint frontend sources - fail CI if lint errors
+          npm run lint
           # run frontend tests
           npm test --silent
           # run TypeScript type check (no emit)
