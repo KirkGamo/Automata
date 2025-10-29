@@ -60,8 +60,10 @@ jobs:
           # run TypeScript type check (no emit)
           npx tsc -p tsconfig.json --noEmit
           npm run build
-          # start a preview server in the background for Playwright
-          nohup npm run preview -- --port 5173 > preview.log 2>&1 &
+          # start the dev server (supports proxy to backend) in the background for Playwright
+          nohup npm run dev -- --port 5173 > preview.log 2>&1 &
+          # wait for frontend to be available
+          npx wait-on http://localhost:5173
           # install playwright browsers and run E2E tests
           npx playwright install --with-deps
           npx playwright test --config=playwright.config.ts --reporter=list
