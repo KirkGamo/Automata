@@ -1,0 +1,143 @@
+﻿Pumping Lemma Visualizer: A Web-Based Tool for Testing the Pumping Lemma on Formal Languages
+
+
+A Project Documentation
+Presented to the Faculty of the
+College of Information and Communications Technology
+West Visayas State University
+La Paz, Iloilo City
+
+
+In Partial Fulfillment
+of the Requirements for the Course
+Automata Theory
+
+
+by
+
+
+Kirk Henrich C. Gamo
+Jullian A. Bilan
+Clarence Anthony G. Bolivar
+Jan Floyd J. Vallota
+
+
+October 2025
+I. INTRODUCTION
+BACKGROUND        
+        The Pumping Lemma is a fundamental concept in automata and formal language theory. It helps determine whether a language is regular or context-free by testing if certain strings can be “pumped” while remaining in the language. Despite its importance, students often find it abstract because proofs are symbolic, not visual.
+The Interactive Pumping Lemma Visualizer addresses this learning gap. It offers a visual and interactive way to understand how the lemma works by letting users experiment with strings, splits, and pumping repetitions.
+PROBLEM STATEMENT
+        “Students struggle to grasp the mechanics of the Pumping Lemma because traditional teaching relies on static proofs and text-based examples. This leads to weak intuition about language classes and their boundaries.”
+PURPOSE
+The project aims to provide an educational web application that:
+* Visualizes how the Pumping Lemma operates on regular and context-free languages.
+* Demonstrates why certain languages fail or satisfy the lemma.
+* Supports interactive learning through string manipulation and visual feedback.
+SCOPE
+The system focuses on:
+* Simulating both the Regular and Context-Free Pumping Lemma.
+* Visualizing decomposition and repetition of string segments.
+* Supporting common formal languages (aⁿbⁿ, aⁿbⁿcⁿ, (ab)ⁿ, etc.).
+* Providing educational explanations of outcomes.
+        It will not include automated theorem proving or grammar generation beyond preset examples.
+II. OBJECTIVES
+General Objective
+        To develop an interactive visualization tool that demonstrates how the Pumping Lemma applies to different formal languages.
+
+
+Specific Objectives
+1. To let users select or input a formal language.
+2. To generate valid strings and decompose them according to lemma rules.
+3. To allow pumping (repetition) and display the resulting strings.
+4. To determine if the pumped string remains in the language.
+5. To explain each step visually and textually for better understanding.
+III. SYSTEM OVERVIEW
+SYSTEM DESCRIPTION
+The system provides a step-by-step interactive simulation of the Pumping Lemma. Users pick a language and observe how the lemma applies. The program highlights decomposed parts, pumps them, and checks if the resulting string still belongs to the language.
+
+
+The main workflow:
+1. User selects a language.
+2. System generates a sample string s ≥ p.
+3. User adjusts how to split s into x, y, z (or u, v, w, x, y).
+4. System performs pumping for selected i.
+5. Output shows whether xyⁱz or uvⁱwxⁱy is valid.
+IV. System Features
+1. Language Selection
+Users select from built-in languages or input their own regular expression.
+2. Lemma Mode
+Choose between Regular and Context-Free lemma modes.
+3. String Generation
+ Generates a sample string meeting the pumping length condition.
+4. Decomposition Interface
+Allows users to drag or select segments representing x, y, z (or u, v, w, x, y).
+5. Pumping Control
+Users pick i (0, 1, 2, 3, ...). System regenerates and displays pumped string.
+6. Membership Check
+System validates if the new string belongs to the selected language.
+7. Visualization Panel
+Color-coded display:
+   * x, y, z segments in different colors
+   * Animated pumping effect
+   * Real-time feedback on validitY
+   8. Explanation Panel
+Displays rule conditions:
+      * |y| > 0
+      * |xy| ≤ p
+      * For all i ≥ 0, xyⁱz ∈ L
+and shows which are satisfied or violated.
+
+
+V. System Design
+Architecture
+Frontend-heavy web app with optional backend for processing user-defined languages.
+Frontend:
+        HTML, CSS, JavaScript, React or Vue.js
+Backend (optional):
+        Python Flask or Node.js for language membership checking
+Visualization Library:
+        D3.js or Canvas for animations
+Functional Flow
+User Flow:
+Select Lemma Type → Choose Language → Generate String → Split → Pump → Evaluate → View Explanation
+
+Data Flow
+         * User input: language and string
+         * System processes: decomposition and pumping login
+         * Output: pumped string + result visualization
+VI. Sample Scenario
+Language: L = {aⁿbⁿ | n ≥ 1}
+Lemma: Regular Pumping Lemma
+String: s = a⁵b⁵
+Split: x = aa, y = a, z = abbb
+Pump: i = 2 → a⁶b⁵
+Result: Invalid → violates aⁿbⁿ pattern → Not Regular
+The system displays color-coded highlights, a short explanation, and the result text.
+VII. Implementation Plan
+Phase 1: Interface Design
+• Build main UI layout and visualization canvas.
+Phase 2: Core Logic
+• Implement string generation, decomposition, and pumping mechanics.
+Phase 3: Validation Engine
+• Encode pattern checkers for each preset language.
+Phase 4: Visualization
+• Add color animation and step-by-step transitions.
+Phase 5: Testing and Documentation
+• Verify correctness and clarity of displayed steps.
+VIII. Target Users
+         * Computer Science studentS
+         * Automata and formal language instructors
+         * Learners studying theoretical computation
+IX. Expected Output
+A functional, web-based application that demonstrates:
+         * Regular and context-free pumping lemma operations
+         * Interactive and visual learning
+         * Automated validation of lemma properties
+X. Possible Extensions
+         * User-defined grammar import
+         * Integration with finite automata visualizers
+         * Proof generation in LaTeX
+         * Quiz and assessment module
+XI. Conclusion
+The Interactive Pumping Lemma Visualizer turns an abstract concept into a concrete, visual experience. It bridges theory and understanding by allowing users to observe how strings behave under the Pumping Lemma. The system promotes better comprehension of language classification and strengthens foundational learning in automata theory.
