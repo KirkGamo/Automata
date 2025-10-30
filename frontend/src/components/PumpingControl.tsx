@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { usePumpingStore } from '../lib/store';
 import { pumpRegularString, pumpCFString } from '../lib/pumpingLogic';
 import { checkMembership } from '../lib/membership';
+import { VisualizationCanvas } from './VisualizationCanvas';
 import type { RegularSegments, CFSegments } from '../types/lemma';
 import './PumpingControl.css';
 
@@ -11,12 +12,14 @@ export function PumpingControl() {
     string: string;
     isValid: boolean;
   } | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   if (!testString || !segments) {
     return null;
   }
 
   const handlePump = () => {
+    setIsAnimating(true);
     let pumpedString: string;
 
     if (mode === 'regular') {
@@ -27,6 +30,9 @@ export function PumpingControl() {
 
     const isValid = checkMembership(pumpedString, language);
     setPumpedResult({ string: pumpedString, isValid });
+    
+    // Reset animation flag after a delay
+    setTimeout(() => setIsAnimating(false), 1000);
   };
 
   const renderSegmentPreview = () => {
@@ -116,6 +122,11 @@ export function PumpingControl() {
       <button onClick={handlePump} className="btn btn-primary">
         Pump String
       </button>
+
+      <VisualizationCanvas 
+        pumpedString={pumpedResult?.string} 
+        isAnimating={isAnimating}
+      />
 
       {pumpedResult && (
         <div className={`result-panel ${pumpedResult.isValid ? 'valid' : 'invalid'}`}>
