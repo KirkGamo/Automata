@@ -71,12 +71,24 @@ jobs:
           echo "--- listening TCP ports (ss) ---"
           ss -ltnp || netstat -ltnp || true
 
-      - name: Wait for server to be ready
+      - name: Wait for server to be ready (curl retry)
         working-directory: server
         run: |
-          # wait for the backend to accept connections, and show last logs for debugging
-          # wait up to 2 minutes for backend to accept connections
-          npx wait-on --timeout 120000 http://localhost:4000
+          # retry curl against backend with controlled retries and clear logging
+          max_attempts=24
+          attempt=0
+          until curl -sS http://localhost:4000/ -o /dev/null; do
+            attempt=$((attempt+1))
+            echo "backend not ready (attempt ${attempt}/${max_attempts})"
+            if [ ${attempt} -ge ${max_attempts} ]; then
+              echo "backend failed to start after ${max_attempts} attempts"
+              echo "--- server.log (tail) ---"
+              tail -n +1 server.log || true
+              exit 1
+            fi
+            sleep 5
+          done
+          echo "backend ready"
           echo "--- server.log (tail) ---"
           tail -n +1 server.log || true
 
@@ -101,9 +113,20 @@ jobs:
           npm run build
           # start the dev server with explicit API base so it hits the backend directly in CI
           VITE_API_BASE=http://localhost:4000 nohup npm run dev -- --port 5173 > preview.log 2>&1 &
-          # wait for frontend to be available
-          # wait up to 2 minutes for frontend to be available
-          npx wait-on --timeout 120000 http://localhost:5173
+          # wait for frontend to be available using curl retry loop
+          max_attempts=24
+          attempt=0
+          until curl -sS http://localhost:5173/ -o /dev/null; do
+            attempt=$((attempt+1))
+            echo "frontend not ready (attempt ${attempt}/${max_attempts})"
+            if [ ${attempt} -ge ${max_attempts} ]; then
+              echo "frontend failed to start after ${max_attempts} attempts"
+              echo "--- preview.log (tail) ---"; tail -n +1 preview.log || true
+              exit 1
+            fi
+            sleep 5
+          done
+          echo "frontend ready"
           # install playwright browsers and run E2E tests
           # Debug: print environment and check installed playwright packages to catch duplicates
           echo "--- Environment (selected vars) ---"
