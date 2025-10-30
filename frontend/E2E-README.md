@@ -3,28 +3,30 @@
 This file explains how to run the Playwright end-to-end tests locally on Windows (PowerShell). The project uses a Vite dev server for the frontend and an Express backend on port 4000.
 
 Quick summary
+
 - Start the backend and frontend dev servers in separate terminals.
 - Install Playwright browsers (once): `npx playwright install --with-deps`.
 - Run the E2E tests: `npm run e2e` (in `frontend`).
 
 Detailed steps
 
-1) Install dependencies (if not already installed)
+1. Install dependencies (if not already installed)
 
 ```powershell
 cd frontend
 npm install
 ```
 
-2) Install Playwright browsers (only once per machine or after lockfile changes)
+2. Install Playwright browsers (only once per machine or after lockfile changes)
 
 ```powershell
 npx playwright install --with-deps
 ```
 
-3) Start servers (two terminals)
+3. Start servers (two terminals)
 
 # Terminal A — start backend (from repo root)
+
 ```powershell
 cd server
 npm run dev    # or `node dist/index.js` if you built the server
@@ -32,13 +34,14 @@ npm run dev    # or `node dist/index.js` if you built the server
 ```
 
 # Terminal B — start frontend dev server
+
 ```powershell
 cd frontend
 npm run dev
 # frontend available at http://localhost:5173
 ```
 
-4) Run E2E tests
+4. Run E2E tests
 
 In a third terminal (or after the servers are up):
 
@@ -47,8 +50,8 @@ cd frontend
 npm run e2e
 ```
 
-Windows note
---
+## Windows note
+
 If you are running PowerShell on Windows and encounter quoting or command-shell issues, use the Windows helper which runs the dev server through cmd:
 
 ```powershell
@@ -57,6 +60,7 @@ npm run e2e:dev:win
 ```
 
 Notes & alternatives
+
 - If you prefer a single command that starts the frontend and runs tests when the page is ready, you can use `start-server-and-test` or `concurrently` via `npx`. Example (requires installing `start-server-and-test`):
 
 ```powershell
