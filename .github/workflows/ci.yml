@@ -62,7 +62,8 @@ jobs:
         working-directory: server
         run: |
           # wait for the backend to accept connections, and show last logs for debugging
-          npx wait-on http://localhost:4000
+          # wait up to 2 minutes for backend to accept connections
+          npx wait-on --timeout 120000 http://localhost:4000
           echo "--- server.log (tail) ---"
           tail -n +1 server.log || true
 
@@ -88,7 +89,8 @@ jobs:
           # start the dev server with explicit API base so it hits the backend directly in CI
           VITE_API_BASE=http://localhost:4000 nohup npm run dev -- --port 5173 > preview.log 2>&1 &
           # wait for frontend to be available
-          npx wait-on http://localhost:5173
+          # wait up to 2 minutes for frontend to be available
+          npx wait-on --timeout 120000 http://localhost:5173
           # install playwright browsers and run E2E tests
           # Debug: print environment and check installed playwright packages to catch duplicates
           echo "--- Environment (selected vars) ---"
