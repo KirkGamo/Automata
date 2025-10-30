@@ -49,6 +49,19 @@ jobs:
           sleep 1
           echo "--- process list (node/npm) ---"
           ps aux | egrep "node|npm" || true
+          echo "--- list server/dist ---"
+          ls -la dist || true
+          echo "--- server.log (full) ---"
+          cat server.log || true
+          echo "--- curl health endpoint (verbose) ---"
+          curl -v --max-time 5 http://localhost:4000/ || true
+          echo "--- server PID and tail server.log ---"
+          pid=$(ps aux | egrep "node .*dist/index.js" | egrep -v egrep | awk '{print $2}') || true
+          echo "PID=$pid" || true
+          if [ -n "$pid" ]; then
+            echo "process $pid exists"; ps -fp $pid || true
+            tail -n 200 server.log || true
+          fi
           echo "--- server.log head ---"
           head -n 200 server.log || true
           echo "--- server.log tail ---"
