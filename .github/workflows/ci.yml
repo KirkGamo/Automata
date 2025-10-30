@@ -42,6 +42,22 @@ jobs:
           # start the built server in background for E2E tests
           nohup npm start > server.log 2>&1 &
 
+      - name: Diagnostics after server start
+        working-directory: server
+        run: |
+          # short sleep to let process spawn
+          sleep 1
+          echo "--- process list (node/npm) ---"
+          ps aux | egrep "node|npm" || true
+          echo "--- server.log head ---"
+          head -n 200 server.log || true
+          echo "--- server.log tail ---"
+          tail -n 200 server.log || true
+          echo "--- node/npm versions ---"
+          node --version || true; npm --version || true
+          echo "--- listening TCP ports (ss) ---"
+          ss -ltnp || netstat -ltnp || true
+
       - name: Wait for server to be ready
         working-directory: server
         run: |
