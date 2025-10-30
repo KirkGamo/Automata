@@ -1,0 +1,199 @@
+.decomposition-control {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.decomposition-control h2 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.decomposition-control .instruction {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.segment-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.segment-input-group {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.segment-input-group label {
+  font-size: 1.25rem;
+  font-weight: bold;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.segment-x-label,
+.segment-u-input {
+  color: var(--primary);
+}
+
+.segment-y-label,
+.segment-v-input {
+  color: var(--error);
+}
+
+.segment-z-label,
+.segment-w-input {
+  color: var(--success);
+}
+
+.segment-x-label {
+  color: var(--primary);
+}
+
+.segment-y-label {
+  color: var(--secondary);
+}
+
+.segment-input {
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.segment-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.segment-x-input {
+  border-color: var(--primary);
+}
+
+.segment-x-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.segment-y-input,
+.segment-v-input {
+  border-color: var(--error);
+}
+
+.segment-y-input:focus,
+.segment-v-input:focus {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.segment-z-input,
+.segment-w-input {
+  border-color: var(--success);
+}
+
+.segment-z-input:focus,
+.segment-w-input:focus {
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.segment-u-input {
+  border-color: #8b5cf6;
+}
+
+.segment-u-input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.segment-length {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  min-width: 4rem;
+}
+
+.segment-constraint {
+  background: var(--bg-tertiary);
+  border-left: 4px solid var(--warning);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.decomposition-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.error-panel {
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid var(--error);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.error-panel h4 {
+  color: var(--error);
+  margin-bottom: 0.5rem;
+}
+
+.error-panel ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: var(--text-primary);
+}
+
+.error-panel li {
+  margin: 0.25rem 0;
+}
+
+.success-panel {
+  background: rgba(16, 185, 129, 0.1);
+  border: 2px solid var(--success);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.success-panel h4 {
+  color: var(--success);
+  margin-bottom: 0.5rem;
+}
+
+.success-panel p {
+  color: var(--text-primary);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .decomposition-control {
+    padding: 1.5rem;
+  }
+
+  .segment-input-group {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .segment-input-group label {
+    text-align: left;
+  }
+
+  .decomposition-actions {
+    flex-direction: column;
+  }
+}

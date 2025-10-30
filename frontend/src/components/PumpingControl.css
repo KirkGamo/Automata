@@ -1,0 +1,262 @@
+.pumping-control {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.pumping-control h2 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.pumping-control .instruction {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.current-decomposition {
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.current-decomposition h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.segment-preview {
+  font-family: 'Courier New', monospace;
+  font-size: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.segment {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.segment-x,
+.segment-u {
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--primary);
+}
+
+.segment-y {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--error);
+}
+
+.segment-z {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--success);
+}
+
+.segment-v {
+  background: rgba(139, 92, 246, 0.2);
+  color: var(--secondary);
+}
+
+.segment-w {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--warning);
+}
+
+.pump-input-group {
+  margin: 1.5rem 0;
+}
+
+.pump-input-group label {
+  display: block;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.pump-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pump-slider {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--bg-tertiary);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.pump-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.pump-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.pump-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s;
+}
+
+.pump-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+.pump-number-input {
+  width: 80px;
+  padding: 0.5rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.pump-number-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.pump-formula {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1.5rem 0;
+  color: var(--text-primary);
+}
+
+.pump-formula code {
+  background: var(--bg-tertiary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.result-panel {
+  margin-top: 2rem;
+  border-radius: 12px;
+  padding: 1.5rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result-panel.valid {
+  background: rgba(16, 185, 129, 0.1);
+  border: 2px solid var(--success);
+}
+
+.result-panel.invalid {
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid var(--error);
+}
+
+.result-panel h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.result-panel.valid h3 {
+  color: var(--success);
+}
+
+.result-panel.invalid h3 {
+  color: var(--error);
+}
+
+.pumped-string {
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.pumped-string label {
+  display: block;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.pumped-string code {
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+  word-break: break-all;
+}
+
+.result-explanation {
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.result-details {
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.result-details p {
+  color: var(--text-secondary);
+  margin: 0.5rem 0;
+}
+
+.result-details strong {
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .pumping-control {
+    padding: 1.5rem;
+  }
+
+  .pump-slider-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pump-number-input {
+    width: 100%;
+  }
+
+  .segment-preview {
+    font-size: 1rem;
+  }
+
+  .pump-formula {
+    font-size: 1.25rem;
+  }
+}

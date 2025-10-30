@@ -1,5 +1,7 @@
 import { usePumpingStore } from './lib/store';
 import { LANGUAGES } from './lib/languages';
+import { DecompositionControl } from './components/DecompositionControl';
+import { PumpingControl } from './components/PumpingControl';
 import './App.css';
 
 function App() {
@@ -65,7 +67,7 @@ function App() {
 
         {testString && (
           <section className="string-display">
-            <h2>Test String</h2>
+            <h2>Step 1: Test String Generated</h2>
             <div className="test-string">
               <code>{testString}</code>
             </div>
@@ -75,15 +77,29 @@ function App() {
           </section>
         )}
 
+        {testString && <DecompositionControl />}
+
+        <PumpingControl />
+
         <section className="info-panel">
-          <h2>How to use:</h2>
-          <ol>
-            <li>Select a lemma mode (Regular or Context-Free)</li>
-            <li>Choose a language from the dropdown</li>
-            <li>Click "Generate Test String" to create a string</li>
-            <li>Split the string into segments (coming soon)</li>
-            <li>Choose a pump count and visualize the result (coming soon)</li>
-          </ol>
+          <h2>About the Pumping Lemma</h2>
+          
+          <div className="lemma-explanation">
+            <p>
+              The Pumping Lemma is a property of {mode === 'regular' ? 'regular' : 'context-free'} languages 
+              that states: if a language is {mode === 'regular' ? 'regular' : 'context-free'}, then any 
+              sufficiently long string in the language can be "pumped" (repeated parts) and still remain in the language.
+            </p>
+            <p>
+              <strong>How to use this tool to prove a language is NOT {mode === 'regular' ? 'regular' : 'context-free'}:</strong>
+            </p>
+            <ol>
+              <li>Generate a test string from the language</li>
+              <li>Split it according to the lemma conditions</li>
+              <li>Pump it with different values of i</li>
+              <li>If you find any i where the pumped string is NOT in the language, you've proven the language is not {mode === 'regular' ? 'regular' : 'context-free'}!</li>
+            </ol>
+          </div>
           
           <div className="lemma-conditions">
             <h3>{mode === 'regular' ? 'Regular' : 'Context-Free'} Pumping Lemma Conditions:</h3>
