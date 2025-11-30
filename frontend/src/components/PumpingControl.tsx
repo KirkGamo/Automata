@@ -2,24 +2,21 @@ import { useState } from 'react';
 import { usePumpingStore } from '../lib/store';
 import { pumpRegularString, pumpCFString } from '../lib/pumpingLogic';
 import { checkMembership } from '../lib/membership';
-import { VisualizationCanvas } from './VisualizationCanvas';
 import type { RegularSegments, CFSegments } from '../types/lemma';
 import './PumpingControl.css';
 
 export function PumpingControl() {
-  const { mode, language, testString, segments, pumpCount, setPumpCount } = usePumpingStore();
-  const [pumpedResult, setPumpedResult] = useState<{
+  const { mode, language, testString, segments, pumpCount, setPumpCount, setPumpedResult } = usePumpingStore();
+  const [pumpedResult, setPumpedResultLocal] = useState<{
     string: string;
     isValid: boolean;
   } | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   if (!testString || !segments) {
     return null;
   }
 
   const handlePump = () => {
-    setIsAnimating(true);
     let pumpedString: string;
 
     if (mode === 'regular') {
@@ -29,10 +26,9 @@ export function PumpingControl() {
     }
 
     const isValid = checkMembership(pumpedString, language);
-    setPumpedResult({ string: pumpedString, isValid });
-    
-    // Reset animation flag after a delay
-    setTimeout(() => setIsAnimating(false), 1000);
+    const result = { string: pumpedString, isValid };
+    setPumpedResultLocal(result);
+    setPumpedResult(result);
   };
 
   const renderSegmentPreview = () => {
@@ -123,51 +119,56 @@ export function PumpingControl() {
         Pump String
       </button>
 
-      <VisualizationCanvas 
-        pumpedString={pumpedResult?.string} 
-        isAnimating={isAnimating}
-      />
-
       {pumpedResult && (
-        <div className={`result-panel ${pumpedResult.isValid ? 'valid' : 'invalid'}`}>
-          <h3>{pumpedResult.isValid ? '✅ Valid' : '❌ Invalid'}</h3>
-          <div className="pumped-string">
-            <label>Pumped string:</label>
-            <code>{pumpedResult.string}</code>
-          </div>
-          <p className="result-explanation">
-            {pumpedResult.isValid ? (
-              <>
-                The pumped string <strong>is still in the language</strong>. This means the decomposition 
-                passed the test for i = {pumpCount}.
-              </>
-            ) : (
-              <>
-                The pumped string <strong>is NOT in the language</strong>! This proves the language 
-                cannot be {mode === 'regular' ? 'regular' : 'context-free'} because we found a counterexample 
-                where pumping failed.
-              </>
-            )}
-          </p>
-          <div className="result-details">
-            <p>
-              <strong>Original length:</strong> {testString.length}
+        <>
+          <div className="result-modal-overlay" onClick={() => setPumpedResultLocal(null)}></div>
+          <div className={`result-modal ${pumpedResult.isValid ? 'valid' : 'invalid'}`}>
+            <button 
+              className="result-modal-close" 
+              onClick={() => setPumpedResultLocal(null)}
+              aria-label="Close result"
+            >
+              ×
+            </button>
+            <h3>{pumpedResult.isValid ? '✅ Valid' : '❌ Invalid'}</h3>
+            <div className="pumped-string">
+              <label>Pumped string:</label>
+              <code>{pumpedResult.string}</code>
+            </div>
+            <p className="result-explanation">
+              {pumpedResult.isValid ? (
+                <>
+                  The pumped string <strong>is still in the language</strong>. This means the decomposition 
+                  passed the test for i = {pumpCount}.
+                </>
+              ) : (
+                <>
+                  The pumped string <strong>is NOT in the language</strong>! This proves the language 
+                  cannot be {mode === 'regular' ? 'regular' : 'context-free'} because we found a counterexample 
+                  where pumping failed.
+                </>
+              )}
             </p>
-            <p>
-              <strong>Pumped length:</strong> {pumpedResult.string.length}
-            </p>
-            {mode === 'regular' && (
+            <div className="result-details">
               <p>
-                <strong>Formula used:</strong> x + y × {pumpCount} + z
+                <strong>Original length:</strong> {testString.length}
               </p>
-            )}
-            {mode === 'context-free' && (
               <p>
-                <strong>Formula used:</strong> u + v × {pumpCount} + w + x × {pumpCount} + y
+                <strong>Pumped length:</strong> {pumpedResult.string.length}
               </p>
-            )}
+              {mode === 'regular' && (
+                <p>
+                  <strong>Formula used:</strong> x + y × {pumpCount} + z
+                </p>
+              )}
+              {mode === 'context-free' && (
+                <p>
+                  <strong>Formula used:</strong> u + v × {pumpCount} + w + x × {pumpCount} + y
+                </p>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </section>
   );

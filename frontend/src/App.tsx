@@ -2,10 +2,11 @@ import { usePumpingStore } from './lib/store';
 import { LANGUAGES } from './lib/languages';
 import { DecompositionControl } from './components/DecompositionControl';
 import { PumpingControl } from './components/PumpingControl';
+import { VisualizationCanvas } from './components/VisualizationCanvas';
 import './App.css';
 
 function App() {
-  const { mode, language, testString, pumpingLength, setMode, setLanguage, generateString } = usePumpingStore();
+  const { mode, language, testString, pumpingLength, segments, pumpedResult, setMode, setLanguage, generateString } = usePumpingStore();
 
   const currentLanguageInfo = LANGUAGES.find((l) => l.id === language);
 
@@ -17,6 +18,7 @@ function App() {
       </header>
 
       <main className="app-main">
+        {/* Left Sidebar - Controls */}
         <section className="control-panel">
           <div className="control-group">
             <label htmlFor="lemma-mode">Lemma Mode:</label>
@@ -63,11 +65,14 @@ function App() {
           <button onClick={generateString} className="btn btn-primary">
             Generate Test String
           </button>
+
+          {testString && <DecompositionControl />}
         </section>
 
+        {/* Top Center - String Display */}
         {testString && (
           <section className="string-display">
-            <h2>Step 1: Test String Generated</h2>
+            <h2>Test String Generated</h2>
             <div className="test-string">
               <code>{testString}</code>
             </div>
@@ -77,9 +82,13 @@ function App() {
           </section>
         )}
 
-        {testString && <DecompositionControl />}
-
-        <PumpingControl />
+        {/* Bottom Center - Visualization Area */}
+        {testString && segments && (
+          <div className="visualization-area">
+            <PumpingControl />
+            <VisualizationCanvas pumpedString={pumpedResult?.string} />
+          </div>
+        )}
 
         <section className="info-panel">
           <h2>About the Pumping Lemma</h2>

@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.DS_Store
+coverage
+dist
+build
+.env
+.env.local
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.eslintcache
+vitest.config.ts.timestamp-*

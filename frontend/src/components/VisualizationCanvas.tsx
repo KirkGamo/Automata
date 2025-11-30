@@ -11,7 +11,6 @@ interface VisualizationCanvasProps {
 
 export function VisualizationCanvas({ pumpedString, isAnimating = false }: VisualizationCanvasProps) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
   const [hoveredSegment, setHoveredSegment] = useState<string | null>(null);
   const { mode, segments, pumpCount, testString, pumpingLength } = usePumpingStore();
 
@@ -119,15 +118,17 @@ export function VisualizationCanvas({ pumpedString, isAnimating = false }: Visua
       { name: 'z', value: z, color: '#10b981', gradient: 'url(#grad-z)', label: 'z (suffix)' }
     ];
 
-    // Add legend
-    const legend = g.append('g').attr('class', 'legend').attr('transform', 'translate(-280, -30)');
+    // Add legend with better positioning
+    const legendSpacing = 120;
+    const legendStartX = -(legendSpacing * segmentData.length) / 2 + 10;
+    const legend = g.append('g').attr('class', 'legend').attr('transform', `translate(${legendStartX}, -35)`);
     
     segmentData.forEach((seg, i) => {
-      const legendItem = legend.append('g').attr('transform', `translate(${i * 190}, 0)`);
+      const legendItem = legend.append('g').attr('transform', `translate(${i * legendSpacing}, 0)`);
       
       legendItem.append('rect')
-        .attr('width', 20)
-        .attr('height', 20)
+        .attr('width', 18)
+        .attr('height', 18)
         .attr('fill', seg.gradient)
         .attr('rx', 4)
         .attr('opacity', 0)
@@ -137,9 +138,9 @@ export function VisualizationCanvas({ pumpedString, isAnimating = false }: Visua
         .attr('opacity', 0.8);
       
       legendItem.append('text')
-        .attr('x', 28)
-        .attr('y', 15)
-        .attr('class', 'legend-text')
+        .attr('x', 24)
+        .attr('y', 14)
+        .attr('class', 'legend-text-small')
         .text(seg.label)
         .attr('opacity', 0)
         .transition()
@@ -291,18 +292,18 @@ export function VisualizationCanvas({ pumpedString, isAnimating = false }: Visua
         .attr('opacity', 0);
 
       badge.append('circle')
-        .attr('r', 18)
+        .attr('r', 14)
         .attr('fill', '#ef4444')
         .attr('stroke', '#fff')
-        .attr('stroke-width', 2);
+        .attr('stroke-width', 1.5);
 
       badge.append('text')
         .attr('text-anchor', 'middle')
-        .attr('dy', 5)
+        .attr('dy', 4)
         .attr('class', 'pump-badge')
         .attr('fill', '#fff')
         .attr('font-weight', 'bold')
-        .attr('font-size', '14px')
+        .attr('font-size', '11px')
         .text(`i=${pumpCount}`);
 
       badge.transition()
@@ -316,7 +317,7 @@ export function VisualizationCanvas({ pumpedString, isAnimating = false }: Visua
         .attr('y', 160)
         .attr('text-anchor', 'middle')
         .attr('class', 'viz-title')
-        .text(`Pumped String (i = ${pumpCount}):`)
+        .text(`Pumped String:`)
         .attr('opacity', 0)
         .transition()
         .duration(600)
@@ -478,15 +479,17 @@ export function VisualizationCanvas({ pumpedString, isAnimating = false }: Visua
       { name: 'y', value: y, color: '#10b981', gradient: 'url(#grad-z)', label: 'y (suffix)' }
     ];
     
-    // Add legend for CF mode
-    const legend = g.append('g').attr('class', 'legend').attr('transform', 'translate(-350, -30)');
+    // Add legend for CF mode with better positioning
+    const legendSpacing = 110;
+    const legendStartX = -(legendSpacing * segmentData.length) / 2 + 20;
+    const legend = g.append('g').attr('class', 'legend').attr('transform', `translate(${legendStartX}, -35)`);
     
     segmentData.forEach((seg, i) => {
-      const legendItem = legend.append('g').attr('transform', `translate(${i * 145}, 0)`);
+      const legendItem = legend.append('g').attr('transform', `translate(${i * legendSpacing}, 0)`);
       
       legendItem.append('rect')
-        .attr('width', 18)
-        .attr('height', 18)
+        .attr('width', 16)
+        .attr('height', 16)
         .attr('fill', seg.gradient)
         .attr('rx', 3)
         .attr('opacity', 0)
@@ -496,8 +499,8 @@ export function VisualizationCanvas({ pumpedString, isAnimating = false }: Visua
         .attr('opacity', 0.8);
       
       legendItem.append('text')
-        .attr('x', 24)
-        .attr('y', 13)
+        .attr('x', 22)
+        .attr('y', 12)
         .attr('class', 'legend-text-small')
         .text(seg.label)
         .attr('opacity', 0)
@@ -632,18 +635,18 @@ export function VisualizationCanvas({ pumpedString, isAnimating = false }: Visua
         .attr('opacity', 0);
 
       badge.append('circle')
-        .attr('r', 18)
+        .attr('r', 14)
         .attr('fill', '#8b5cf6')
         .attr('stroke', '#fff')
-        .attr('stroke-width', 2);
+        .attr('stroke-width', 1.5);
 
       badge.append('text')
         .attr('text-anchor', 'middle')
-        .attr('dy', 5)
+        .attr('dy', 4)
         .attr('class', 'pump-badge')
         .attr('fill', '#fff')
         .attr('font-weight', 'bold')
-        .attr('font-size', '14px')
+        .attr('font-size', '11px')
         .text(`i=${pumpCount}`);
 
       badge.transition()

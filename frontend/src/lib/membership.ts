@@ -54,7 +54,7 @@ export function checkMembership(s: string, lang: Language): boolean {
 export function validateRegularSegments(
   x: string,
   y: string,
-  z: string,
+  _z: string,
   pumpingLength: number
 ): { isValid: boolean; errors: string[] } {
   const errors: string[] = [];
@@ -79,11 +79,11 @@ export function validateRegularSegments(
  * Validate if segments satisfy pumping lemma conditions for context-free languages
  */
 export function validateCFSegments(
-  u: string,
+  _u: string,
   v: string,
   w: string,
   x: string,
-  y: string,
+  _y: string,
   pumpingLength: number
 ): { isValid: boolean; errors: string[] } {
   const errors: string[] = [];

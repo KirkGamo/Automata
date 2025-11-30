@@ -6,7 +6,13 @@ import { create } from 'zustand';
 import type { PumpingState, Language, LemmaMode, Segments } from '../types/lemma';
 import { generateTestString, getDefaultPumpingLength } from '../lib/pumpingLogic';
 
+interface PumpedResult {
+  string: string;
+  isValid: boolean;
+}
+
 interface PumpingStore extends PumpingState {
+  pumpedResult: PumpedResult | null;
   setMode: (mode: LemmaMode) => void;
   setLanguage: (language: Language) => void;
   setTestString: (testString: string) => void;
@@ -15,6 +21,7 @@ interface PumpingStore extends PumpingState {
   setPumpCount: (pumpCount: number) => void;
   setIsValid: (isValid: boolean | null) => void;
   setErrorMessage: (errorMessage: string | undefined) => void;
+  setPumpedResult: (pumpedResult: PumpedResult | null) => void;
   reset: () => void;
   generateString: () => void;
 }
@@ -32,8 +39,9 @@ const initialState: PumpingState = {
 
 export const usePumpingStore = create<PumpingStore>((set, get) => ({
   ...initialState,
+  pumpedResult: null,
 
-  setMode: (mode) => set({ mode, segments: null, isValid: null }),
+  setMode: (mode) => set({ mode, segments: null, isValid: null, pumpedResult: null }),
 
   setLanguage: (language) => {
     const pumpingLength = getDefaultPumpingLength(language);
@@ -60,11 +68,13 @@ export const usePumpingStore = create<PumpingStore>((set, get) => ({
 
   setErrorMessage: (errorMessage) => set({ errorMessage }),
 
-  reset: () => set(initialState),
+  setPumpedResult: (pumpedResult) => set({ pumpedResult }),
+
+  reset: () => set({ ...initialState, pumpedResult: null }),
 
   generateString: () => {
     const { language, pumpingLength } = get();
     const testString = generateTestString(language, pumpingLength);
-    set({ testString, segments: null, isValid: null, errorMessage: undefined });
+    set({ testString, segments: null, isValid: null, errorMessage: undefined, pumpedResult: null });
   },
 }));

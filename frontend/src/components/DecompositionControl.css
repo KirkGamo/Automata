@@ -1,38 +1,58 @@
 .decomposition-control {
   background: var(--bg-secondary);
-  border-radius: 12px;
-  padding: 2rem;
-  margin: 2rem 0;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  max-height: calc(100vh - 28rem);
+  overflow-y: auto;
+}
+
+.decomposition-control::-webkit-scrollbar {
+  width: 4px;
+}
+
+.decomposition-control::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+  border-radius: 2px;
+}
+
+.decomposition-control::-webkit-scrollbar-thumb {
+  background: var(--color-bg-lighter);
+  border-radius: 2px;
 }
 
 .decomposition-control h2 {
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
 .decomposition-control .instruction {
   color: var(--text-secondary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.625rem;
+  font-size: 0.7rem;
+  line-height: 1.3;
 }
 
 .segment-inputs {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+  margin-bottom: 0.625rem;
 }
 
 .segment-input-group {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .segment-input-group label {
-  font-size: 1.25rem;
+  font-size: 0.875rem;
   font-weight: bold;
-  min-width: 2rem;
+  min-width: 1.5rem;
   text-align: center;
 }
 
@@ -60,13 +80,13 @@
 }
 
 .segment-input {
-  padding: 0.75rem;
-  border: 2px solid var(--border);
-  border-radius: 8px;
+  padding: 0.375rem 0.5rem;
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
   background: var(--bg-tertiary);
   color: var(--text-primary);
   font-family: 'Courier New', monospace;
-  font-size: 1rem;
+  font-size: 0.8rem;
   transition: all 0.2s;
 }
 
@@ -118,65 +138,77 @@
 
 .segment-length {
   color: var(--text-secondary);
-  font-size: 0.875rem;
-  min-width: 4rem;
+  font-size: 0.7rem;
+  min-width: 3rem;
 }
 
 .segment-constraint {
   background: var(--bg-tertiary);
-  border-left: 4px solid var(--warning);
-  padding: 0.75rem 1rem;
+  border-left: 2px solid var(--warning);
+  padding: 0.375rem 0.5rem;
   border-radius: 4px;
   color: var(--text-secondary);
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  margin-top: 0.375rem;
+  line-height: 1.3;
 }
 
 .decomposition-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 0.5rem;
+  margin-top: 0.625rem;
+}
+
+.decomposition-actions .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
 }
 
 .error-panel {
   background: rgba(239, 68, 68, 0.1);
-  border: 2px solid var(--error);
-  border-radius: 8px;
-  padding: 1rem;
-  margin-top: 1rem;
+  border: 1.5px solid var(--error);
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .error-panel h4 {
   color: var(--error);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.8rem;
 }
 
 .error-panel ul {
   margin: 0;
-  padding-left: 1.5rem;
+  padding-left: 1rem;
   color: var(--text-primary);
 }
 
 .error-panel li {
-  margin: 0.25rem 0;
+  margin: 0.15rem 0;
+  font-size: 0.7rem;
+  line-height: 1.3;
 }
 
 .success-panel {
   background: rgba(16, 185, 129, 0.1);
-  border: 2px solid var(--success);
-  border-radius: 8px;
-  padding: 1rem;
-  margin-top: 1rem;
+  border: 1.5px solid var(--success);
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .success-panel h4 {
   color: var(--success);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.8rem;
 }
 
 .success-panel p {
   color: var(--text-primary);
   margin: 0;
+  font-size: 0.7rem;
+  line-height: 1.3;
 }
 
 @media (max-width: 768px) {
